@@ -1,20 +1,13 @@
-namespace Tests
+namespace Chinchillada.Tests
 {
     using System;
     using System.Collections.Generic;
     using Chinchillada;
-    using Chinchillada.Tests;
     using NUnit.Framework;
     using UnityEngine;
 
-    public static class FindComponentAttributeTests
+    public class FindComponentAttributeTests : UnityObjectTests
     {
-        [TearDown]
-        public static void TearDown()
-        {
-            GameObjectMocking.TearDown();
-        }
-
         #region Fields
 
         [TestCase(SearchStrategy.FindComponent, ExpectedResult = true)]
@@ -23,7 +16,7 @@ namespace Tests
         [TestCase(SearchStrategy.InScene, ExpectedResult       = true)]
         public static bool FindsAndAssignsComponent(SearchStrategy strategy)
         {
-            var behavior  = GameObjectMocking.WithComponent<BehaviorWithField>();
+            var behavior  = UnityTestUtil.CreateGameObjectWith<BehaviorWithField>();
             var component = behavior.gameObject.AddComponent<TestComponent>();
 
             return ExecuteFindFieldTest(behavior, strategy, component);
@@ -35,8 +28,8 @@ namespace Tests
         [TestCase(SearchStrategy.InScene, ExpectedResult       = true)]
         public static bool FindsAndAssignsComponentInChild(SearchStrategy strategy)
         {
-            var behavior = GameObjectMocking.WithComponent<BehaviorWithField>();
-            var child    = GameObjectMocking.WithComponent<TestComponent>();
+            var behavior = UnityTestUtil.CreateGameObjectWith<BehaviorWithField>();
+            var child    = UnityTestUtil.CreateGameObjectWith<TestComponent>();
 
             child.transform.parent = behavior.transform;
 
@@ -49,8 +42,8 @@ namespace Tests
         [TestCase(SearchStrategy.InScene, ExpectedResult       = true)]
         public static bool FindsAndAssignsComponentInParent(SearchStrategy strategy)
         {
-            var behavior = GameObjectMocking.WithComponent<BehaviorWithField>();
-            var parent   = GameObjectMocking.WithComponent<TestComponent>();
+            var behavior = UnityTestUtil.CreateGameObjectWith<BehaviorWithField>();
+            var parent   = UnityTestUtil.CreateGameObjectWith<TestComponent>();
 
             behavior.transform.parent = parent.transform;
 
@@ -63,8 +56,8 @@ namespace Tests
         [TestCase(SearchStrategy.InScene, ExpectedResult       = true)]
         public static bool FindsAndAssignsComponentInScene(SearchStrategy strategy)
         {
-            var behavior = GameObjectMocking.WithComponent<BehaviorWithField>();
-            var other    = GameObjectMocking.WithComponent<TestComponent>();
+            var behavior = UnityTestUtil.CreateGameObjectWith<BehaviorWithField>();
+            var other    = UnityTestUtil.CreateGameObjectWith<TestComponent>();
 
             return ExecuteFindFieldTest(behavior, strategy, other);
         }
@@ -93,7 +86,7 @@ namespace Tests
         {
             const int componentCount = 5;
             
-            var behavior = GameObjectMocking.WithComponent<BehaviorWithCollection>();
+            var behavior = UnityTestUtil.CreateGameObjectWith<BehaviorWithCollection>();
 
             for (var i = 0; i < componentCount; i++)
                 behavior.gameObject.AddComponent<TestComponent>();
@@ -128,7 +121,7 @@ namespace Tests
         {
             const int componentCount = 5;
 
-            var behavior             = GameObjectMocking.WithComponent<BehaviorWithCollection>();
+            var behavior             = UnityTestUtil.CreateGameObjectWith<BehaviorWithCollection>();
             var objectWithComponents = CreateComponents();
 
             behavior.transform.parent = objectWithComponents.transform;
@@ -137,7 +130,7 @@ namespace Tests
             
             static GameObject CreateComponents()
             {
-                var gameObject = GameObjectMocking.Empty();
+                var gameObject = UnityTestUtil.CreateGameObject();
 
                 for (int i = 0; i < componentCount; i++) 
                     gameObject.AddComponent<TestComponent>();
@@ -168,11 +161,11 @@ namespace Tests
                                                                  Action<TestComponent, BehaviorWithCollection>
                                                                      componentInitializer)
         {
-            var behavior = GameObjectMocking.WithComponent<BehaviorWithCollection>();
+            var behavior = UnityTestUtil.CreateGameObjectWith<BehaviorWithCollection>();
             
             for (var i = 0; i < componentCount; i++)
             {
-                var component = GameObjectMocking.WithComponent<TestComponent>();
+                var component = UnityTestUtil.CreateGameObjectWith<TestComponent>();
                 componentInitializer.Invoke(component, behavior);
             }
 

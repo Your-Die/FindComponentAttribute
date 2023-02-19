@@ -1,20 +1,15 @@
-namespace Tests
+namespace Chinchillada.Tests
 {
     using Chinchillada;
-    using Chinchillada.Tests;
     using NUnit.Framework;
     using UnityEngine;
 
-    public static class AutoRefBehaviourTests
+    public class AutoRefBehaviourTests : UnityObjectTests
     {
-        [TearDown]
-        public static void TearDown() => GameObjectMocking.TearDown();
-
         [Test]
         public static void FindsComponentOnCreation()
         {
-            var component = GameObjectMocking.WithComponent<Component>();
-
+            var component = UnityTestUtil.CreateGameObjectWith<Component>();
             var behaviour = component.gameObject.AddComponent<BehaviourWithField>();
             
             Assert.That(behaviour.component, Is.EqualTo(component));

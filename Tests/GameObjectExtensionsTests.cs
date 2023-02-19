@@ -1,16 +1,12 @@
-namespace Tests
+namespace Chinchillada.Tests
 {
     using System.Linq;
     using Chinchillada;
-    using Chinchillada.Tests;
     using NUnit.Framework;
     using UnityEngine;
 
-    public class GameObjectExtensionsTests
+    public class GameObjectExtensionsTests : UnityObjectTests
     {
-        [TearDown]
-        public static void TearDown() => GameObjectMocking.TearDown();
-
         [Test]
         public static void FindsComponentOnOtherObject()
         {
@@ -31,10 +27,10 @@ namespace Tests
             var gameObject = new GameObject();
             var result = gameObject.GetComponentsInScene<MockBehavior>().ToList();
 
-            Assert.That(result, Has.Count.EqualTo(amount));
+            Assert.That(result, NUnit.Framework.Has.Count.EqualTo(amount));
         }
         
-        private static MockBehavior MockWithComponent() => GameObjectMocking.WithComponent<MockBehavior>();
+        private static MockBehavior MockWithComponent() => UnityTestUtil.CreateGameObjectWith<MockBehavior>();
 
         private class MockBehavior : MonoBehaviour
         {

@@ -4,8 +4,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Chinchillada.TestUtils",
-        "Chinchillada.AutoRef.Runtime"
+        "Chinchillada.AutoRef.Runtime",
+        "Chinchillada.Foundation.Tests"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -13,9 +13,7 @@
     "overrideReferences": true,
     "precompiledReferences": [
         "nunit.framework.dll",
-        "Castle.Core.dll",
         "NSubstitute.dll",
-        "System.Threading.Tasks.Extensions.dll",
         "Sirenix.Serialization.dll"
     ],
     "autoReferenced": false,

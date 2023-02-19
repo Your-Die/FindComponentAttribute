@@ -5,18 +5,15 @@ namespace Tests
     using NUnit.Framework;
     using UnityEngine;
 
-    public static class SearchStrategyTests
+    public class SearchStrategyTests : UnityObjectTests
     {
-        [TearDown]
-        public static void TearDown() => GameObjectMocking.TearDown();
-
-        [TestCase(SearchStrategy.FindComponent, ExpectedResult = true)]
+    [TestCase(SearchStrategy.FindComponent, ExpectedResult = true)]
         [TestCase(SearchStrategy.InChildren, ExpectedResult    = true)]
         [TestCase(SearchStrategy.InParent, ExpectedResult      = true)]
         [TestCase(SearchStrategy.InScene, ExpectedResult       = true)]
         public static bool FindsComponentGeneric(SearchStrategy strategy)
         {
-            var behaviour = GameObjectMocking.WithComponent<Behaviour>();
+            var behaviour = UnityTestUtil.CreateGameObjectWith<Behaviour>();
 
             var result = strategy.FindComponent<Behaviour>(behaviour.gameObject);
 
@@ -29,8 +26,8 @@ namespace Tests
         [TestCase(SearchStrategy.InScene, ExpectedResult       = true)]
         public static bool FindsComponentInChildren(SearchStrategy strategy)
         {
-            var gameObject = GameObjectMocking.Empty();
-            var child     = GameObjectMocking.WithComponent<Behaviour>();
+            var gameObject = UnityTestUtil.CreateGameObject();
+            var child      = UnityTestUtil.CreateGameObjectWith<Behaviour>();
             
             child.transform.parent = gameObject.transform;
 
@@ -45,8 +42,8 @@ namespace Tests
         [TestCase(SearchStrategy.InScene, ExpectedResult       = true)]
         public static bool FindsComponentInParent(SearchStrategy strategy)
         {
-            var gameObject = GameObjectMocking.Empty();
-            var parent      = GameObjectMocking.WithComponent<Behaviour>();
+            var gameObject = UnityTestUtil.CreateGameObject();
+            var parent     = UnityTestUtil.CreateGameObjectWith<Behaviour>();
             
             gameObject.transform.parent = parent.transform;
 
@@ -61,8 +58,8 @@ namespace Tests
         [TestCase(SearchStrategy.InScene, ExpectedResult       = true)]
         public static bool FindsComponentInScene(SearchStrategy strategy)
         {
-            var gameObject = GameObjectMocking.Empty();
-            var other     = GameObjectMocking.WithComponent<Behaviour>();
+            var gameObject = UnityTestUtil.CreateGameObject();
+            var other      = UnityTestUtil.CreateGameObjectWith<Behaviour>();
             
             var result = strategy.FindComponent<Behaviour>(gameObject);
 

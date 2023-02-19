@@ -6,15 +6,13 @@ namespace Tests
     using NUnit.Framework;
     using UnityEngine;
 
-    public static class FindNestedComponentAttributeTests
+    public class FindNestedComponentAttributeTests : UnityObjectTests
     {
-        [TearDown]
-        public static void TearDown() => GameObjectMocking.TearDown();
         
         [Test]
         public static void FindNestedComponent()
         {
-            var behaviour = GameObjectMocking.WithComponent<BehaviourWithNested>();
+            var behaviour = UnityTestUtil.CreateGameObjectWith<BehaviourWithNested>();
             var component = behaviour.gameObject.AddComponent<Component>();
 
             var fieldInfo = typeof(BehaviourWithNested).GetField(nameof(BehaviourWithNested.classWithField));
