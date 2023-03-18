@@ -19,27 +19,30 @@ namespace Chinchillada
 
     public static class SearchStrategyExtensions
     {
-        public static T FindComponent<T>(this SearchStrategy strategy, GameObject gameObject)
+        public static T FindComponent<T>(this SearchStrategy strategy, GameObject gameObject,
+                                         bool                includeInactive = false)
         {
             switch (strategy)
             {
                 case SearchStrategy.FindComponent: return gameObject.GetComponent<T>();
-                case SearchStrategy.InParent:      return gameObject.GetComponentInParent<T>();
-                case SearchStrategy.InChildren:    return gameObject.GetComponentInChildren<T>();
-                case SearchStrategy.InScene:       return gameObject.GetComponentInScene<T>();
+                case SearchStrategy.InParent:      return gameObject.GetComponentInParent<T>(includeInactive);
+                case SearchStrategy.InChildren:    return gameObject.GetComponentInChildren<T>(includeInactive);
+                case SearchStrategy.InScene:       return gameObject.GetComponentInScene<T>(includeInactive);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(strategy), strategy, null);
             }
         }
 
-        public static IEnumerable<T> FindComponents<T>(this SearchStrategy strategy, GameObject gameObject)
+        public static IEnumerable<T> FindComponents<T>(this SearchStrategy strategy,
+                                                       GameObject          gameObject,
+                                                       bool                includeInactive = false)
         {
             switch (strategy)
             {
                 case SearchStrategy.FindComponent: return gameObject.GetComponents<T>();
-                case SearchStrategy.InParent:      return gameObject.GetComponentsInParent<T>();
-                case SearchStrategy.InChildren:    return gameObject.GetComponentsInChildren<T>();
-                case SearchStrategy.InScene:       return gameObject.GetComponentsInScene<T>();
+                case SearchStrategy.InParent:      return gameObject.GetComponentsInParent<T>(includeInactive);
+                case SearchStrategy.InChildren:    return gameObject.GetComponentsInChildren<T>(includeInactive);
+                case SearchStrategy.InScene:       return gameObject.GetComponentsInScene<T>(includeInactive);
 
                 default: throw new ArgumentOutOfRangeException(nameof(strategy), strategy, null);
             }
@@ -52,13 +55,13 @@ namespace Chinchillada
                 case SearchStrategy.FindComponent: return gameObject.GetComponent(type);
                 case SearchStrategy.InParent:      return gameObject.GetComponentInParent(type);
                 case SearchStrategy.InChildren:    return gameObject.GetComponentInChildren(type);
-                case SearchStrategy.InScene: return (Component) Object.FindObjectOfType(type);
-                default:                     throw new ArgumentOutOfRangeException();
+                case SearchStrategy.InScene:       return (Component)Object.FindObjectOfType(type);
+                default:                           throw new ArgumentOutOfRangeException();
             }
         }
 
         public static IEnumerable<Component> FindComponents(this SearchStrategy strategy, GameObject gameObject,
-            Type type)
+                                                            Type                type)
         {
             switch (strategy)
             {
