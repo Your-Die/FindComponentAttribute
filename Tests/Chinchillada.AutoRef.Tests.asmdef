@@ -7,7 +7,9 @@
         "Chinchillada.AutoRef.Runtime",
         "Chinchillada.Foundation.Tests"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
