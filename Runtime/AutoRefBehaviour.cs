@@ -7,10 +7,11 @@ namespace Chinchillada
     using System.Reflection;
 
     /// <summary>
-    /// Base class for MonoBehaviours. Inherits from <see cref="Sirenix.OdinInspector.SerializedMonoBehaviour"/>.
-    /// Automatically applies <see cref="FindComponentAttribute"/> on awake, and also extends a Button to manually trigger it from the Unity editor.
+    /// Base class for MonoBehaviours.
+    /// Automatically applies <see cref="FindComponentAttribute"/> on awake,
+    /// and also extends a Button to manually trigger it from the Unity editor.
     /// </summary>
-    public abstract class AutoRefBehaviour : SerializedMonoBehaviour
+    public abstract class AutoRefBehaviour : MonoBehaviour
     {
         protected virtual void Awake() => this.FindComponents();
 
