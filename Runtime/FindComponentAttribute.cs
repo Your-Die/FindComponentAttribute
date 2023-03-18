@@ -44,12 +44,10 @@ namespace Chinchillada
         }
 
 
-
         private static void ResolveField(Component behaviour, object obj, FieldInfo field, SearchStrategy strategy)
         {
             var fieldValue = field.GetValue(obj);
-
-            if (fieldValue != null)
+            if (!fieldValue.IsNull())
                 return;
 
             var result = strategy.FindComponent(behaviour.gameObject, field.FieldType);

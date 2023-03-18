@@ -9,6 +9,13 @@ namespace Chinchillada
 
     public static class TypeExtensions
     {
+        public static bool IsNull(this object obj)
+        {
+            return obj is Object unityObject 
+                ? unityObject == null 
+                : obj         == null;
+        }
+        
         public static IEnumerable<Type> GetBaseClasses(this Type type)
         {
             for (var current = type.BaseType; current != null; current = current.BaseType)
