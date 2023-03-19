@@ -5,7 +5,9 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Chinchillada.AutoRef.Runtime",
-        "Chinchillada.Foundation.Tests"
+        "Chinchillada.Foundation.Tests",
+        "UnityEditor.UI",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [
         "Editor"
